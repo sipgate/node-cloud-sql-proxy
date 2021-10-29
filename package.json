@@ -21,7 +21,8 @@
     "prepare": "npm run build"
   },
   "files": [
-    "dist/**/*"
+    "dist/**/*",
+    "bin/**/*"
   ],
   "license": "MIT",
   "devDependencies": {},
