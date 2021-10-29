@@ -12,7 +12,7 @@ const log = (message: string) =>
   console.log(`${chalk.blue("[Proxy]")} ${message}`);
 
 const getBinary = (): string => {
-  const paths = {
+  const paths: any = {
     linux: {
       x64: resolve(__dirname, "..", "bin", "cloud_sql_proxy_linux_amd32"),
       x32: resolve(__dirname, "..", "bin", "cloud_sql_proxy_linux_amd64"),
@@ -25,7 +25,7 @@ const getBinary = (): string => {
   try {
     return paths[platform()][arch()];
   } catch (err) {
-    error(`Cannot access binary: ${err.message}`);
+    error(`Cannot access binary: ${err instanceof Error ? err.message : err}`);
     process.exit(1);
   }
 };
@@ -45,28 +45,36 @@ export interface Options {
   gcpCredentials?: string;
 }
 
-const getArgsFromEnv = () => {
-  const args = [];
-  if (process.env[ENV.NODE_CLOUD_SQL_DIR])
-    args.push("-dir", process.env[ENV.NODE_CLOUD_SQL_DIR]);
-  if (process.env[ENV.NODE_CLOUD_SQL_INSTANCES])
-    args.push("-instances", process.env[ENV.NODE_CLOUD_SQL_INSTANCES]);
-  if (process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH])
+const checkEnv = (key: string) => {
+  return process.env[key] && typeof process.env[key] === "string";
+};
+
+const getArgsFromEnv = (): string[] => {
+  const args: string[] = [];
+  if (checkEnv(ENV.NODE_CLOUD_SQL_DIR))
+    args.push("-dir", process.env[ENV.NODE_CLOUD_SQL_DIR] as string);
+  if (checkEnv(ENV.NODE_CLOUD_SQL_INSTANCES))
+    args.push(
+      "-instances",
+      process.env[ENV.NODE_CLOUD_SQL_INSTANCES] as string
+    );
+  if (checkEnv(ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH))
     args.push(
       "-credential_file",
-      process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH]
+      process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH] as string
     );
   return args;
 };
 
 const getEnv = () => {
-  const env = {};
-  if (process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS]) {
-    env[ENV.GOOGLE_APPLICATION_CREDENTIALS] =
-      process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS];
+  if (checkEnv(ENV.GOOGLE_APPLICATION_CREDENTIALS)) {
+    return {
+      [ENV.GOOGLE_APPLICATION_CREDENTIALS]:
+        process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS],
+    };
   }
 
-  return env;
+  return {};
 };
 
 const connect = async (options: Options = { quiet: true }): Promise<void> => {

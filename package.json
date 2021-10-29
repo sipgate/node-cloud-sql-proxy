@@ -1,18 +1,20 @@
 {
   "name": "node-cloud-sql-proxy",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Node wrapper for the google sql cloud proxy",
+  "author": "Leon Erath<erath@sipgate.de>",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "local": "tsc && cp package.json ./dist/ && npm link",
+    "build":"tsc",
     "download": "./scripts/download.sh"
   },
   "files": [
     "dist"
   ],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {},
   "dependencies": {
     "@types/node": "^16.11.4",
