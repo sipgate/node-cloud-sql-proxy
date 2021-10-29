@@ -2,9 +2,10 @@ import * as chalk from "chalk";
 import { spawn } from "child_process";
 import { arch, platform } from "os";
 import { resolve } from "path";
-const config = require("dotenv").config();
-const expand = require("dotenv-expand");
+import dotenv from "dotenv";
+import expand from "dotenv-expand";
 
+const config = dotenv.config();
 expand(config);
 
 const error = (message: string) => console.error(chalk.red(message));
