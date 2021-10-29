@@ -1,6 +1,6 @@
 {
   "name": "node-cloud-sql-proxy",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node wrapper for the google sql cloud proxy",
   "repository": "github:sipgate/node-cloud-sql-proxy",
   "contributors": [
