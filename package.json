@@ -22,10 +22,13 @@
   "scripts": {
     "local": "tsc && cp package.json ./dist/ && npm link",
     "build": "tsc",
-    "download": "./scripts/download.sh"
+    "download": "./scripts/download.sh",
+    "version": "git add .",
+    "postversion": "git push && git push --tags",
+    "prepare": "npm run build"
   },
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "license": "MIT",
   "devDependencies": {},
