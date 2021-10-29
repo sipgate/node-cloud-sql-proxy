@@ -9,16 +9,9 @@
       "email": "leon-erath@hotmail.de"
     }
   ],
-  "keywords": [
-    "node",
-    "cloud-sql-auth-proxy",
-    "google",
-    "cloud",
-    "auth-proxy"
-  ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "local": "tsc && cp package.json ./dist/ && npm link",
     "build": "tsc",
@@ -39,5 +32,12 @@
     "dotenv-expand": "^5.1.0",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
-  }
+  },
+  "keywords": [
+    "node",
+    "cloud-sql-auth-proxy",
+    "google",
+    "cloud",
+    "auth-proxy"
+  ]
 }
