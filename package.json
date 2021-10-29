@@ -2,11 +2,19 @@
   "name": "node-cloud-sql-proxy",
   "version": "0.0.1",
   "description": "Node wrapper for the google sql cloud proxy",
+  "repository": "github:sipgate/node-cloud-sql-proxy",
   "contributors": [
     {
       "name": "Leon Erath",
       "email": "leon-erath@hotmail.de"
     }
+  ],
+  "keywords": [
+    "node",
+    "cloud-sql-auth-proxy",
+    "google",
+    "cloud",
+    "auth-proxy"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
