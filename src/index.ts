@@ -85,7 +85,12 @@ const connect = async (options: Options = { quiet: true }): Promise<void> => {
     process.exit(1);
   }
 
-  if (arch() !== "x32" && arch() !== "x64") {
+  if (
+    arch() !== "x32" &&
+    arch() !== "x64" &&
+    arch() !== "arm" &&
+    arch() !== "arm64"
+  ) {
     error(`CPU architecture "${arch()}"" is not supported.`);
     process.exit(1);
   }
