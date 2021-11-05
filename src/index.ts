@@ -20,6 +20,8 @@ const getBinary = (): string => {
     darwin: {
       x64: resolve(__dirname, "..", "bin", "cloud_sql_proxy_macos_amd64"),
       x32: resolve(__dirname, "..", "bin", "cloud_sql_proxy_macos_amd32"),
+      arm: resolve(__dirname, "..", "bin", "cloud_sql_proxy_macos_arm64"),
+      arm64: resolve(__dirname, "..", "bin", "cloud_sql_proxy_macos_arm64"),
     },
   };
   try {
