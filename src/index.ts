@@ -1,6 +1,7 @@
 import * as chalk from "chalk";
 import { spawn } from "child_process";
 import { arch, platform } from "os";
+import { join } from "path";
 import { resolve } from "path";
 const config = require("dotenv").config();
 const expand = require("dotenv-expand");
@@ -63,7 +64,9 @@ const getArgsFromEnv = (): string[] => {
   if (checkEnv(ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH))
     args.push(
       "-credential_file",
-      process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH] as string
+      resolveHome(
+        process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS_PATH] as string
+      )
     );
   return args;
 };
@@ -71,8 +74,9 @@ const getArgsFromEnv = (): string[] => {
 const getEnv = () => {
   if (checkEnv(ENV.GOOGLE_APPLICATION_CREDENTIALS)) {
     return {
-      [ENV.GOOGLE_APPLICATION_CREDENTIALS]:
-        process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS],
+      [ENV.GOOGLE_APPLICATION_CREDENTIALS]: resolveHome(
+        process.env[ENV.GOOGLE_APPLICATION_CREDENTIALS] as string
+      ),
     };
   }
 
@@ -126,6 +130,13 @@ const connect = async (options: Options = { quiet: true }): Promise<void> => {
 
     setTimeout(() => res(), 5 * 1000);
   });
+};
+
+const resolveHome = (filepath: string) => {
+  if (filepath[0] === "~") {
+    return join(process.env.HOME as string, filepath.slice(1));
+  }
+  return filepath;
 };
 
 export default { connect };
